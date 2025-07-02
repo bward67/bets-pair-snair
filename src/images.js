@@ -10,6 +10,9 @@ import KadeHockey from "./assets/kade-hockey.JPEG";
 import WalkerBaking from "./assets/walker-baking.JPEG";
 import WalkerSinging from "./assets/walker-singing.PNG";
 import WalkerSliding from "./assets/walker-sliding.PNG";
+import Bets_Les from "./assets/bets_les.JPG";
+import Les from "./assets/les.JPG";
+import Les_venice from "./assets/les-venice.JPG";
 
 const images = {
   "Angie.JPEG": Angie,
@@ -24,6 +27,9 @@ const images = {
   "walker-baking.JPEG": WalkerBaking,
   "walker-singing.PNG": WalkerSinging,
   "walker-sliding.PNG": WalkerSliding,
+  "bets_les.JPG": Bets_Les,
+  "les.JPG": Les,
+  "les-venice.JPG": Les_venice,
 };
 
 export default images;

@@ -11,6 +11,9 @@ const data = [
   { name: "Wildfire Walker", image: "walker-baking.JPEG" },
   { name: "Wolfie Walker", image: "walker-singing.PNG" },
   { name: "Warrior Walker", image: "walker-sliding.PNG" },
+  { name: "Grandma and Grandpa in Venice", image: "bets_les.JPG" },
+  { name: "Grandma and Grandpa in Venice", image: "les.JPG" },
+  { name: "Grandpa on a speedboat in Venice", image: "les-venice.JPG" },
 ];
 
 export default data;
