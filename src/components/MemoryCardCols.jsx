@@ -4,10 +4,6 @@ import data from "../data";
 import images from "../images";
 import LastMatchMessageModal from "./LastMatchMessageModal";
 
-const shuffleArray = (array) => {
-  return array.sort(() => Math.random() - 0.5);
-};
-
 const MemoryCard = ({ setHasWon, playerNames, setWinnerName }) => {
   // console.log(data);
 
@@ -22,23 +18,66 @@ const MemoryCard = ({ setHasWon, playerNames, setWinnerName }) => {
     playerNames.map((name) => ({ name, score: 0 }))
   );
   const [currentPlayer, setCurrentPlayer] = useState(0); /// index into players array
+  const [columns, setColumns] = useState(4); // default
+
+  // const shuffleArray = (array) => {
+  //   return array.sort(() => Math.random() - 0.5);
+  // };
+
+  const fisherYatesShuffle = (array) => {
+    const arr = array.slice(); // avoid mutating original
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
 
   useEffect(() => {
-    const doubled = [...data, ...data]; // to get 2 of each
-    const shuffled = shuffleArray(
-      doubled.map((card, index) => ({
-        ...card,
-        id: index, // we will need for unique keys
-      }))
-    );
+    const updateColumns = () => {
+      const screenWidth = window.innerWidth;
+      let cols;
 
-    //preload all images
-    shuffled.forEach((card) => {
-      const img = new Image();
-      img.src = images[card.image];
-    });
+      if (screenWidth < 400) {
+        cols = 2;
+      } else if (screenWidth < 600) {
+        cols = 4;
+      } else if (screenWidth < 900) {
+        cols = 6;
+      } else {
+        cols = 8;
+      }
 
-    setCards(shuffled);
+      setColumns(cols);
+      document.documentElement.style.setProperty("--columns", cols);
+
+      const maxUnique = data.length;
+      const uniqueCardsNeeded = Math.min(Math.floor((cols * 5) / 2), maxUnique);
+      const selected = data.slice(0, uniqueCardsNeeded);
+      const doubled = [...selected, ...selected];
+      const shuffled = fisherYatesShuffle(
+        doubled.map((card, index) => ({
+          ...card,
+          id: index,
+        }))
+      );
+
+      //preload all images
+      shuffled.forEach((card) => {
+        const img = new Image();
+        img.src = images[card.image];
+      });
+
+      setCards(shuffled);
+    };
+
+    updateColumns(); // Run once on mount
+
+    // Run on window resize
+    window.addEventListener("resize", updateColumns);
+
+    // Clean up listener on unmount
+    return () => window.removeEventListener("resize", updateColumns);
   }, []);
 
   useEffect(() => {
@@ -138,27 +177,33 @@ const MemoryCard = ({ setHasWon, playerNames, setWinnerName }) => {
           </p>
         ))}
       </div>
-      <ul className="card-grid">
-        {cards.map((card) => {
-          const isFlipped =
-            flipped.includes(card.id) || matched.includes(card.id);
-          return (
-            <li
-              key={card.id}
-              className={`card ${isFlipped ? "flipped" : ""} ${
-                mismatchedIds.includes(card.id) ? "mismatchBounce" : ""
-              }`}
-              onClick={() => handleFlipCard(card)}
-            >
-              {isFlipped ? (
-                <img src={images[card.image]} alt={card.name} />
-              ) : (
-                <div className="card-back">?</div>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="card-grid-wrapper">
+        <ul
+          className="card-grid"
+          style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+        >
+          {cards.map((card) => {
+            const isFlipped =
+              flipped.includes(card.id) || matched.includes(card.id);
+            return (
+              <li key={card.id} className="card-grid-item">
+                <div
+                  className={`card ${isFlipped ? "flipped" : ""} ${
+                    mismatchedIds.includes(card.id) ? "mismatchBounce" : ""
+                  }`}
+                  onClick={() => handleFlipCard(card)}
+                >
+                  {isFlipped ? (
+                    <img src={images[card.image]} alt={card.name} />
+                  ) : (
+                    <div className="card-back">?</div>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 };
