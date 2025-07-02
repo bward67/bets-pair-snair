@@ -80,32 +80,25 @@ input {
   padding: 0.4rem;
 }
 
-.grey-p {
-  color: var(--var-grey);
-}
 header {
   padding: 0.3rem 0.8rem;
 }
 .title {
   background-color: var(--var-purple);
 }
-.card-grid-wrapper {
-  width: 100%;
-  max-width: 90vw;
-  margin: 0 auto;
-  padding: 1rem;
-  /* max-height: 80vh;
-  overflow-y: auto; */
+
+.grey-p {
+  color: var(--var-grey);
 }
 .card-grid {
   display: grid;
-  /* grid-template-columns: repeat(var(--columns, 4), 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   gap: 10px;
   padding: 10px;
+  margin: 1rem auto 1rem auto;
   background-color: var(--var-purple);
   justify-items: center;
-  align-items: center;
-  /* max-width: 90vw; */
+  max-width: 800px;
   border-radius: var(--var-br-main);
   /* position: relative; */
 }
@@ -124,22 +117,19 @@ h4 span {
   font-size: 3rem;
 }
 .card {
-  width: 100%;
-  height: 100%;
-  /* object-fit: contain; */
+  width: 8rem;
+  height: 8rem;
+  object-fit: contain;
   overflow: hidden;
   cursor: pointer;
   perspective: 1000px;
+  /* border: 8px solid blueviolet; */
   transition: all 0.4s ease;
+  transform-style: preserve-3d;
   border-radius: var(--var-br-main);
   position: relative;
-  color: var(--var-white);
-  font-size: 5rem;
-}
-.card-grid-item {
   width: 100%;
-  list-style: none;
-  aspect-ratio: 1 / 1;
+  height: 100%;
 }
 .card-back {
   width: 100%;
@@ -178,7 +168,7 @@ h4 span {
   opacity: 1;
 }
 
-/* .card-grid li {
+.card-grid li {
   list-style: none;
   color: var(--var-white);
   font-size: 5rem;
@@ -188,7 +178,7 @@ h4 span {
   display: flex;
   align-items: center;
   justify-content: center;
-} */
+}
 
 .card.mismatch {
   animation: mismatchBounce 0.6s ease;
