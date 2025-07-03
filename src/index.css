@@ -98,7 +98,7 @@ header {
   margin: 1rem auto 1rem auto;
   background-color: var(--var-purple);
   justify-items: center;
-  max-width: 800px;
+  max-width: 1200px;
   border-radius: var(--var-br-main);
   /* position: relative; */
 }
@@ -113,8 +113,10 @@ header {
   border-radius: var(--var-br-main);
   z-index: 5;
 }
-h4 span {
+.name {
   font-size: 3rem;
+  font-weight: bold;
+  color: green;
 }
 .card {
   width: 8rem;
