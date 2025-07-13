@@ -22,10 +22,12 @@ const LastMatchMessageModal = ({
   return (
     <div className="last-match-message-modal">
       {lastMatch && (
-        <h4 style={{ color: "green" }}>
-          WELL DONE! You found both photos of{" "}
-          <span className="name">{currentCard?.name}</span>
-        </h4>
+        <>
+          <h4 style={{ color: "green" }}>
+            WELL DONE! You found both photos of
+          </h4>
+          <p className="name">{currentCard?.name}</p>
+        </>
       )}
     </div>
   );

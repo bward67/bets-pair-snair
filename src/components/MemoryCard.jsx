@@ -146,8 +146,8 @@ const MemoryCard = ({ setHasWon, playerNames, setWinnerName }) => {
             <li
               key={card.id}
               className={`card ${isFlipped ? "flipped" : ""} ${
-                mismatchedIds.includes(card.id) ? "mismatchBounce" : ""
-              }`}
+                matched.includes(card.id) ? "matched" : ""
+              } ${mismatchedIds.includes(card.id) ? "mismatchBounce" : ""}`}
               onClick={() => handleFlipCard(card)}
             >
               {isFlipped ? (

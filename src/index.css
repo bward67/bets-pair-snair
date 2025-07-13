@@ -181,6 +181,9 @@ header {
   align-items: center;
   justify-content: center;
 }
+.card.matched {
+  cursor: not-allowed;
+}
 
 .card.mismatch {
   animation: mismatchBounce 0.6s ease;
